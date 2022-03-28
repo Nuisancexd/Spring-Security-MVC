@@ -1,0 +1,47 @@
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+@RestController
+@RequestMapping("management/api/v1/students")
+public class StudentManagementController {
+
+    private static final List<StudentInformation> STUDENTINF = Arrays.asList(
+            new StudentInformation(1, "Danil P.", "R-215123", "+79712361231"),
+            new StudentInformation(2, "Kirill N.", "R-123512", "+7623561261"),
+            new StudentInformation(3, "Ilnur S.", "R-215123", "+79959459114")
+    );
+
+    // hasRole('Role_') hasAnyRole('Role_') hasAuthority('permission') hasAnyAuthority('permission')
+
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OBSERVER')")
+    public List<StudentInformation> getAllInf() {
+        System.out.println("Information");
+        return STUDENTINF;
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('student:write')")
+    public void registerNewStudent(@RequestBody Student student) {
+        System.out.println("Register New student");
+        System.out.println(student);
+    }
+
+    @DeleteMapping(path = "{studentId}")
+    @PreAuthorize("hasAuthority('student:write')")
+    public void deleteStudent(@PathVariable("studentId") Integer studentId) {
+        System.out.println("Delete student");
+        System.out.println(studentId);
+    }
+
+    @PutMapping(path = "{studentId}")
+    @PreAuthorize("hasAuthority('student:write')")
+    public void updateStudent(@PathVariable("studentId") Integer studentId, @RequestBody Student student) {
+        System.out.println("update");
+        System.out.println(String.format("%s %s", student, student));
+    }
+}
