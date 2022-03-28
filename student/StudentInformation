@@ -1,0 +1,32 @@
+
+public class StudentInformation {
+
+    private final Integer studentId;
+    private final String studentName;
+    private final String nameGroup;
+    private final String phone;
+
+
+    public StudentInformation(Integer studentId, String studentName, String nameGroup, String phone) {
+        this.studentId = studentId;
+        this.studentName = studentName;
+        this.nameGroup = nameGroup;
+        this.phone = phone;
+    }
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public String getNameGroup() {
+        return nameGroup;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+}
